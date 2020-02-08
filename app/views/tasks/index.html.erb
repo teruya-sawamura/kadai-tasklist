@@ -3,23 +3,23 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-4 offset-sm-4">
+  <div class="col-sm-6 offset-sm-3">
 
-        <table class="table table-borderless">
+        <table class="table table-borderless" style="table-layout:fixed;width:100%;">
           <% @tasks.each do |task| %>
               <tbody>
                 <tr>
-                  <th scope="row"><%= link_to task.id , task %>:</th>
-                  <td><%= task.status %></td>
-                  <td>&gt;</td>
-                  <td><%= task.content %></td>
+                  <th style="width:10%"><%= link_to task.id , task %>:</th>
+                  <td style="width:30%"><%= task.status %></td>
+                  <td style="width:10%">&gt;</td>
+                  <td style="word-wrap:break-word;"><%= task.content %></td>
                 </tr>
               </tbody>
           <% end %>
         </table>
 
     <div class="text-right">
-      <%= link_to "新規タスクの作成", new_task_path, class: 'btn btn-primary' %>
+      <%= link_to "タスク作成", new_task_path, class: 'btn btn-primary' %>
     </div>
 
   </div>
