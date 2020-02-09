@@ -1,11 +1,10 @@
 class TasksController < ApplicationController
     
-    
+  #ログイン要求   
   before_action :require_user_logged_in
   
   #ログイン中のユーザでなければshow,edit,update,destroyさせない（indexへ）（URL直入れ対策）
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
- 
   
     def index
         @tasks = current_user.tasks.order(id: :desc)
@@ -15,31 +14,25 @@ class TasksController < ApplicationController
     end
     
     def new
-        if logged_in?   #ログインユーザのみnewアクション許可
-            @task = current_user.tasks.new
-        end
+        @task = current_user.tasks.new
     end
     
     def create
-        if logged_in?   #ログインユーザのみcreateアクション許可
-            @task = current_user.tasks.build(task_params)
-            if @task.save
-                flash[:success] = "Taskが正常に作成されました"
-                redirect_to root_url
-            else
-                @tasks = current_user.tasks.order(id: :desc)
-                flash.now[:danger] = "Taskは作成されませんでした" 
-                render :new
-            end
+        @task = current_user.tasks.build(task_params)
+        if @task.save
+           flash[:success] = "Taskが正常に作成されました"
+           redirect_to root_url
+        else
+            @tasks = current_user.tasks.order(id: :desc)
+            flash.now[:danger] = "Taskは作成されませんでした" 
+            render :new
         end
     end
     
     def edit
-        @task = current_user.tasks.find(params[:id])
     end
     
     def update
-        @task = current_user.tasks.find(params[:id])
         if @task.update(task_params)
             flash[:success] = "Taskは正常に更新されました"
             redirect_to @task
@@ -68,6 +61,5 @@ class TasksController < ApplicationController
           redirect_to root_path
         end
     end
-   
     
 end

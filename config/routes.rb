@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'users/new'
-  get 'users/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # トップページのルーティング
@@ -15,9 +11,8 @@ Rails.application.routes.draw do
   
   #ユーザ登録用ルーティング
   get "signup", to: "users#new"
-
+  resources :users, only: [:create]
   
-  #USEFULルーティング
-  resources :users, only: [:new, :create]
+  #タスク投稿用ルーティング
   resources :tasks
 end
